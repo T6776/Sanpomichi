@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_05_155543) do
+ActiveRecord::Schema.define(version: 2021_12_06_151052) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -42,12 +42,12 @@ ActiveRecord::Schema.define(version: 2021_12_05_155543) do
     t.integer "user_id"
     t.string "name"
     t.string "prefecture"
-    t.integer "map_id"
     t.text "introduction"
-    t.integer "image_id"
     t.boolean "is_hid", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "map_id"
+    t.string "image_id"
   end
 
   create_table "tags", force: :cascade do |t|

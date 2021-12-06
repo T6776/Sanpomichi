@@ -1,3 +1,11 @@
+
 <div class= "container">
   <h1>コース詳細</h1>
+
+  <div>
+      <%= @course.name %>
+
+    <div class="googlemap">
+      <iframe src="https://www.google.com/maps/d/u/0/embed?mid=<%= @map %>" width="640" height="480"></iframe>
+    </div>
 </div>
