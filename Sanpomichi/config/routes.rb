@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   devise_for :users
 
   # ユーザー側のルーティング設定
-  root to: "user/homes#top"
-  get "about", to: "user/homes#about"
-  resources :courses
+  scope module: :user do
+
+    root to: "homes#top"
+    get "about", to: "homes#about"
+    resources :courses
+    resources :users, only: [:edit, :update]
+    
+    get 'users/my_page' => 'users#show'
+
+  end
 
   # 管理者側のルーティング設定
   namespace :admin do
