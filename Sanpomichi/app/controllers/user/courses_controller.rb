@@ -9,7 +9,7 @@ class User::CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
-    ## マイマップidを抜き出してiframe内のURLに渡す
+    ## URLからマイマップidを抜き出してiframe内のURLに渡す
     map = @course.map_id
     map.slice!(0..42)
     @map = map.first(33)
@@ -20,6 +20,7 @@ class User::CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+    @course.user_id = current_user.id
     @course.save
     redirect_to courses_path
   end
@@ -31,6 +32,10 @@ class User::CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:name, :prefecture, :map_id, :introduction, :image_id, :is_hid)
+    values = params.require(:course).permit(:name, :course_id, :prefecture, :map_id, :introduction, :image_id, :is_hid, tag_ids: [] )
+    if values[:tag_ids].nil?
+      values[:tag_ids] = []
+    end
+    return values
   end
 end
