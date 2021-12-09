@@ -1,11 +1,81 @@
 
 <div class= "container">
-  <h1>コース詳細</h1>
+  <div class= "mt-4">
+    <h1>コース詳細</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-8">
+      <div class= "googlemap">
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=<%= @map %>" width="640" height="480"></iframe>
+      </div>
+
+
+    </div>
+
+    <div class="col-4">
+      <h4>コース名：<%= @course.name %></h4><br>
+      <h4>都道府県：<%= @course.prefecture %></h4><br>
+      <h4>タグ：<% @course.tags.all.each do |tag| %>
+                <%= tag.name %><br>&emsp;&emsp;&emsp;
+                <% end %></h4>
+      <h4>
+        <% if @course.favorited_by?(current_user) %>
+          <p>
+            <%= link_to course_favorites_path(@course), method: :delete do %>
+              ♥<%= @course.favorites.count %> いいね
+            <% end %>
+          </p>
+        <% else %>
+          <p>
+            <%= link_to course_favorites_path(@course), method: :post do %>
+              ♡<%= @course.favorites.count %> いいね
+            <% end %>
+          </p>
+        <% end %>
+      </h4><br>
+      <h4>
+        <% if @course.bookmarked_by?(current_user) %>
+          <p>
+            <%= link_to course_bookmarks_path(@course), method: :delete do %>
+              ブックマーク済み
+            <% end %>
+          </p>
+        <% else %>
+          <p>
+            <%= link_to course_bookmarks_path(@course), method: :post do %>
+              ブックマークする
+            <% end %>
+          </p>
+        <% end %>
+      </h4>
+      <h4>
+        <% if current_user.id == @course.user.id %>
+          <%= link_to "編集する", edit_course_path(@course) %>
+        <% end %>
+      </h4>
+    </div>
+  </div>
 
   <div>
-      <%= @course.name %>
-
-    <div class="googlemap">
-      <iframe src="https://www.google.com/maps/d/u/0/embed?mid=<%= @map %>" width="640" height="480"></iframe>
+    <h4>説明文：<%=@course.introduction %></h4>
+    <div>
+      コメント:<br>
+      <% @course.comments.each do |comment| %>
+        <%= comment.user.name %>
+        <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+        <% if comment.user == current_user %>
+          <div>
+            <%= link_to "削除", course_comment_path(comment.course, comment), method: :delete %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
+    <div>
+      <%= form_with(model:[@course, @comment], local: true) do |f| %>
+        <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに" %>
+        <%= f.submit "送信する" %>
+      <% end %>
+    </div>
+  </div>
 </div>

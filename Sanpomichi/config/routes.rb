@@ -9,9 +9,16 @@ Rails.application.routes.draw do
 
     root to: "homes#top"
     get "about", to: "homes#about"
-    resources :courses
+    resources :courses do
+      resources :comments, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
+      resource :bookmarks, only: [:create, :destroy]
+      collection do
+        get :bookmark
+      end
+    end
     resources :users, only: [:edit, :update]
-    
+
     get 'users/my_page' => 'users#show'
 
   end
