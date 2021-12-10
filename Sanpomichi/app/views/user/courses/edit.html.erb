@@ -2,4 +2,32 @@
   <div class= "mt-4">
     <h1>コース編集</h1>
   </div>
+  <div>
+  <%= form_with model: @course, url:courses_path, local: true, method: :post do |f| %>
+    <%= f.label :name, "コース名" %>
+    <%= f.text_field :name %><br>
+    <%= f.label :prefecture, "都道府県名" %>
+    <%= f.select :prefecture, Course.areas.keys, {} %><br>
+    <%= f.label :map_id, "地図URL" %>
+    <%= f.text_field :map_id %><br>
+    <%= f.label :image, "添付画像" %>
+    <%= f.attachment_field :course_images_images, multiple: true %><br>
+    <%= f.label :introduction, "説明文" %>
+    <%= f.text_area :introduction %><br>
+
+    <%=f.label :tag_ids, "タグ選択" %><br>
+
+    <% Tag.all.each do |tag| %>
+      <%= f.check_box :tag_ids,
+         { multiple: true, checked: @course.tags.find_by(id: tag.id).present?,
+         include_hidden: false }, tag[:id] %>
+       <label class="form-check-label">
+         <%= tag.name %>
+       </label>
+     <% end %>
+
+    <br>
+    <%= f.submit '投稿する',class: 'btn btn-primary btn-lg' %>
+  <% end %>
+  </div>
 </div>

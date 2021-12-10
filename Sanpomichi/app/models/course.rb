@@ -2,6 +2,8 @@ class Course < ApplicationRecord
   belongs_to :user
 
   has_many :course_tags, dependent: :destroy
+  has_many :course_images, dependent: :destroy
+  accepts_attachments_for :course_images, attachment: :image
   has_many :tags, through: :course_tags
 
   has_many :comments, dependent: :destroy
@@ -12,7 +14,7 @@ class Course < ApplicationRecord
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
-  
+
   ##ブックマークをしているかの判定
   def bookmarked_by?(user)
     bookmarks.where(user_id: user).exists?

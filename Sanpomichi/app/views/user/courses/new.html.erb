@@ -8,6 +8,8 @@
     <%= f.select :prefecture, Course.areas.keys, {} %><br>
     <%= f.label :map_id, "地図URL" %>
     <%= f.text_field :map_id %><br>
+    <%= f.label :image, "添付画像" %>
+    <%= f.attachment_field :course_images_images, multiple: true %><br>
     <%= f.label :introduction, "説明文" %>
     <%= f.text_area :introduction %><br>
 

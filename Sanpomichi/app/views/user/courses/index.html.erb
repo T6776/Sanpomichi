@@ -2,7 +2,7 @@
   <div class= "mt-4">
     <h1>コース一覧</h1>
   </div>
-  
+
   <div class= "row d-flex align-items-start">
     <div class= "col-8">
       <table class="table table-bordered">
@@ -24,7 +24,7 @@
                 <%= tag.name %>
               <% end %>
             </td>
-            <td><%= link_to "詳細へ", course_path(course) %></td>
+            <td><%= link_to "詳細へ", course_path(course),data: {"turbolinks" => false} %></td>
           </tr>
           <% end %>
         </tbody>

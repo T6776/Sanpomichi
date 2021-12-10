@@ -44,7 +44,7 @@ class User::CoursesController < ApplicationController
   end
 
   def course_params
-    values = params.require(:course).permit(:name, :course_id, :prefecture, :map_id, :introduction, :image_id, :is_hid, tag_ids: [] )
+    values = params.require(:course).permit(:name, :course_id, :prefecture, :map_id, :introduction, :is_hid, course_images_images: [], tag_ids: [] )
     if values[:tag_ids].nil?
       values[:tag_ids] = []
     end
