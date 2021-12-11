@@ -4,7 +4,7 @@
   </div>
 
   <div class= "row d-flex align-items-start">
-    <div class= "col-8">
+    <div class= "col-9">
       <table class="table table-bordered">
         <thead>
           <tr class= "table-secondary">
@@ -31,8 +31,20 @@
       </table>
     </div>
 
-    <div class= "col-2">
-      aa
+    <div class= "col-3 border">
+      <%= form_with model: @course, url:courses_path, local: true do |f| %>
+        <%= f.label :prefecture, "都道府県名" %>
+        <%= f.select :prefecture, Course.areas.keys, {} %><br>
+        <%= f.label :tag_ids, "タグ選択" %><br>
+        <%= Tag.all.each do |tag| %>
+        <%= f.check_box :tag_ids,
+         { multiple: true, include_hidden: false }, tag[:id] %>
+       <label class="form-check-label">
+         <%= tag.name %>
+       </label>
+       <% end %>
+        <%= f.submit '検索する',class: 'btn btn-primary btn-lg' %>
+      <% end %>
     </div>
   </div>
 </div>

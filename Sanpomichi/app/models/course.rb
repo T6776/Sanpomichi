@@ -32,4 +32,8 @@ class Course < ApplicationRecord
     福岡県:40,佐賀県:41,長崎県:42,熊本県:43,大分県:44,宮崎県:45,鹿児島県:46,
     沖縄県:47
    }
+
+  def self.courses_serach(search)
+   Course.where(['prefecture LIKE ? OR introduction LIKE ?', "%#{search}%", "%#{search}%"])
+  end
 end

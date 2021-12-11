@@ -1,6 +1,11 @@
 class User::CoursesController < ApplicationController
   def index
-    @courses = Course.all
+    if params[:tag_id].present?
+      @tag = Tag.find(params[:tag_id])
+      @courses = @tag.courses.order(created_at: :desc)
+    else
+      @courses = Course.all
+    end
   end
 
   def new
