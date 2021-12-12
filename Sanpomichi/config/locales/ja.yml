@@ -1,0 +1,22 @@
+ja:
+  activerecord:
+    attributes:
+      course:
+        name: "コース名"
+        prefecture: "都道府県"
+        introduction: "説明文"
+        map_id: "地図URL"
+      user:
+        name: "ユーザーネーム"
+        email: "メールアドレス"
+        password: "パスワード"
+
+    errors:
+      messages:
+        blank: "が入力されていません。"
+        invalid: "が正しく入力されていません。"
+        exclusion: "を選択してください。"
+        required: "を入力してください。"
+        too_long: "は%{count}文字以内で入力してください"
+        too_short: "は%{count}文字以上で入力してください"
+        wrong_length: "は%{count}文字で入力してください"

@@ -1,20 +1,30 @@
 <div class= "container">
-  <h1>コース新規登録</h1>
-  <div>
+  <div class= "mt-4">
+    <h1>コース新規登録</h1>
+  </div>
+  <% if @course.errors.any? %>
+  <div class= "alert alert-danger">
+    <%= @course.errors.count %>件のエラーが発生しました<br>
+    <% @course.errors.full_messages.each do |message| %>
+      <li class="ml-3"><%= message %></li>
+    <% end %>
+  </div>
+  <% end %>
+
+  <div class= "border p-4">
   <%= form_with model: @course, url:courses_path, local: true, method: :post do |f| %>
     <%= f.label :name, "コース名" %>
     <%= f.text_field :name %><br>
     <%= f.label :prefecture, "都道府県名" %>
     <%= f.select :prefecture, Course.areas.keys, {} %><br>
     <%= f.label :map_id, "地図URL" %>
-    <%= f.text_field :map_id %><br>
+    <%= f.text_field :map_id, placeholder:"https://www.google.com/maps/d/u/0/edit?mid=…" %><br>
     <%= f.label :image, "添付画像" %>
     <%= f.attachment_field :course_images_images, multiple: true %><br>
     <%= f.label :introduction, "説明文" %>
     <%= f.text_area :introduction %><br>
 
-    <%=f.label :tag_ids, "タグ選択" %><br>
-
+    <%= f.label :tag_ids, "タグ選択" %><br>
     <% Tag.all.each do |tag| %>
       <%= f.check_box :tag_ids,
          { multiple: true, checked: @course.tags.find_by(id: tag.id).present?,
@@ -22,7 +32,13 @@
        <label class="form-check-label">
          <%= tag.name %>
        </label>
-     <% end %>
+    <% end %><br>
+
+    <%= f.label :is_hid, "公開設定" %><br>
+    <%= f.radio_button :is_hid, "false", checked: true %>
+    <%= f.label :is_hid, "公開する", value: false %>
+    <%= f.radio_button :is_hid, "true" %>
+    <%= f.label :is_hid, "公開しない", value: true %>
 
     <br>
     <%= f.submit '投稿する',class: 'btn btn-primary btn-lg' %>

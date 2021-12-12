@@ -36,4 +36,12 @@ class Course < ApplicationRecord
   def self.courses_serach(search)
    Course.where(['prefecture LIKE ? OR introduction LIKE ?', "%#{search}%", "%#{search}%"])
   end
+
+  validates :name,:user_id, presence: true
+  validates :prefecture, exclusion: { in: ["---"] }
+  ##[https://www.google.com/maps/d/u/0/edit?mid=]を先頭に含まないURLをはじく
+  VALID_MAP_ID = /\Ahttps:\/\/www\.google\.com\/maps\/d\/u\/0\/edit\?mid=/i
+  validates :map_id, format: { with: VALID_MAP_ID }
+  validates :introduction, presence: true
+
 end
