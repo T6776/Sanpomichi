@@ -18,6 +18,7 @@
 
     <div class="col-4">
       <h4>コース名：<%= @course.name %></h4><br>
+      <h4>投稿者：<%= @course.user.name %></h4><br>
       <h4>都道府県：<%= @course.prefecture %></h4><br>
       <h4>タグ：<% @course.tags.all.each do |tag| %>
                 <%= tag.name %><br>&emsp;&emsp;&emsp;
@@ -72,7 +73,7 @@
     </div>
   </div>
 
-  <div>
+  <div><br>
 
     <div>
       コメント:<br>
@@ -85,7 +86,7 @@
           </div>
         <% end %>
       <% end %>
-    </div>
+    </div><br>
     <div>
       <%= form_with(model:[@course, @comment], local: true) do |f| %>
         <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに" %>

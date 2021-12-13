@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       resource :favorites, only: [:create, :destroy]
       resource :bookmarks, only: [:create, :destroy]
       collection do
-        get :bookmark
+        get :bookmark, :my_course
       end
     end
     resources :users, only: [:edit, :update]

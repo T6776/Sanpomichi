@@ -1,10 +1,9 @@
 class User::CoursesController < ApplicationController
   def index
-    if params[:tag_id].present?
-      @tag = Tag.find(params[:tag_id])
-      @courses = @tag.courses.order(created_at: :desc)
+    if params[:prefecture].present?
+      @courses = Course.where(params[:prefecture])
     else
-      ## 公開設定されているもののみ
+      ## 公開設定されているもののみ表示
       @courses = Course.where(is_hid: false)
     end
   end
@@ -37,7 +36,7 @@ class User::CoursesController < ApplicationController
     @course = Course.new(course_params)
     @course.user_id = current_user.id
     if @course.save
-      redirect_to courses_path
+      redirect_to course_path(@course)
     else
       render :new
     end
@@ -52,7 +51,14 @@ class User::CoursesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
+    @course = Course.find(params[:id])
+    @course.destroy
+    redirect_to courses_path
+  end
+
+  def my_course
+    @courses = Course.where(user_id: current_user.id)
   end
 
   def bookmark
@@ -67,5 +73,8 @@ class User::CoursesController < ApplicationController
       values[:tag_ids] = []
     end
     return values
+  end
+
+  def course_search_params
   end
 end

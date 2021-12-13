@@ -24,10 +24,21 @@
        <label class="form-check-label">
          <%= tag.name %>
        </label>
-     <% end %>
+    <% end %><br>
+
+    <%= f.label :is_hid, "公開設定" %><br>
+    <%= f.radio_button :is_hid, "false" %>
+    <%= f.label :is_hid, "公開する", value: false %>
+    <%= f.radio_button :is_hid, "true" %>
+    <%= f.label :is_hid, "公開しない", value: true %>
 
     <br>
-    <%= f.submit '投稿する',class: 'btn btn-primary btn-lg' %>
+    <%= f.submit "編集内容を保存",class: 'btn btn-primary btn-lg' %>
   <% end %>
+  </div>
+
+  <br>
+  <div>
+    <%= link_to "コースを削除する", course_path(@course), method: :delete, "data-confirm" => "本当にコースを消去しますか？", class:'btn btn-danger text-light btn-deco' %>
   </div>
 </div>

@@ -20,3 +20,10 @@ ja:
         too_long: "は%{count}文字以内で入力してください"
         too_short: "は%{count}文字以上で入力してください"
         wrong_length: "は%{count}文字で入力してください"
+
+  devise:
+    sessions:
+      signed_in: ""
+      signed_out: ""
+    registrations:
+      signed_up: ""

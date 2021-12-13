@@ -33,7 +33,7 @@ Google マップのマイマップ機能を用いて作成した、ウォーキ�
 
 ## 設計書
 
-<...>
+https://drive.google.com/drive/folders/1ml7l6_QYXx98HutGEsor3YAVtx2Y76n-?usp=sharing
 
 ## チャレンジ要素一覧
 
