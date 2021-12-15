@@ -1,10 +1,27 @@
 class User::CoursesController < ApplicationController
   def index
-    if params[:prefecture].present?
-      @courses = Course.where(params[:prefecture])
+    @tags = Tag.all
+    ## 公開設定されているコースのみを取得
+    courses = Course.where(is_hid: false)
+    ## 検索欄で選択した都道府県のコースを取得
+    courses = Course.where(prefecture: params[:prefecture]).where(is_hid: false) if params[:prefecture].present?
+    ## 検索欄で選択した都道府県＋選択したタグのコースを取得
+    if params[:tag_id].present?
+      ## タグに紐づいてる中間テーブルcourse_tagを取得
+      coursetags = CourseTag.where(tag_id: params[:tag_id])
+      ## 中間テーブルに紐づいているコースのidを取得
+      courseid = coursetags.pluck(:course_id)
+      ## idが重複しているコースのみ抜き出す(複数タグのand検索)
+      courseid2 = courseid.select{|v| courseid.count(v) > (params[:tag_id].size - 1) }.uniq
+      courses = Course.where(id: courseid2).where(prefecture: params[:prefecture]).where(is_hid: false)
+    end
+    if params[:sort] == "old"
+      @courses = courses.order(:created_at)
+    elsif params[:sort] == "favorite"
+      ## favoritesテーブルに外部結合し、同じコースに紐づいているものをまとめ、その数で並び替え
+      @courses = courses.left_joins(:favorites).group("courses.id").order("count(favorites.id) desc")
     else
-      ## 公開設定されているもののみ表示
-      @courses = Course.where(is_hid: false)
+      @courses = courses.order(created_at: "DESC")
     end
   end
 
@@ -14,7 +31,7 @@ class User::CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
-    ## 非公開設定がされている場合、作成ユーザー以外はコース一覧にリダイレクトさせる
+    ## 非公開設定がされている場合、作成ユーザー以外はコース一覧にリダイレクトする
     if @course.is_hid == true && @course.user != current_user
       respond_to do |format|
         format.html { redirect_to courses_path, notice: "非公開となっているコースです" }
@@ -58,10 +75,12 @@ class User::CoursesController < ApplicationController
   end
 
   def my_course
+    @tags = Tag.all
     @courses = Course.where(user_id: current_user.id)
   end
 
   def bookmark
+    @tags = Tag.all
     @bookmarks = Bookmark.where(user_id: current_user.id)
   end
 
@@ -75,6 +94,7 @@ class User::CoursesController < ApplicationController
     return values
   end
 
-  def course_search_params
+  def sort_params
+    params.permit(:sort)
   end
 end

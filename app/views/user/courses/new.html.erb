@@ -30,7 +30,7 @@
          { multiple: true, checked: @course.tags.find_by(id: tag.id).present?,
          include_hidden: false }, tag[:id] %>
        <label class="form-check-label">
-         <%= tag.name %>
+         <%= f.label tag.name %>
        </label>
     <% end %><br>
 

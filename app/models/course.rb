@@ -33,9 +33,6 @@ class Course < ApplicationRecord
     沖縄県:47
    }
 
-  def self.serach(search)
-   Course.where(['prefecture LIKE ? OR introduction LIKE ?', "%#{search}%", "%#{search}%"])
-  end
 
   validates :name,:user_id, presence: true
   validates :prefecture, exclusion: { in: ["---"] }

@@ -5,14 +5,15 @@
   </div>
 
   <div class= "row d-flex align-items-start">
-    <div class= "col-9">
+    <div class= "col-10">
       <table class="table table-bordered">
         <thead>
           <tr class= "table-secondary">
             <th style="width: 20%">コース名</th>
             <th style="width: 20%">都道府県</th>
             <th style="width: 20%">タグ</th>
-            <th style="width: 20%"></th>
+            <th style="width: 10%">いいね</th>
+            <th style="width: 10%"></th>
           </tr>
         </thead>
         <tbody>
@@ -21,10 +22,11 @@
             <td><%= course.name %></td>
             <td><%= course.prefecture %></td>
             <td>
-              <% course.tags.all.each do |tag| %>
+              <% course.tags.each do |tag| %>
                 <%= tag.name %>
               <% end %>
             </td>
+            <td><%= course.favorites.count %></td>
             <td><%= link_to "詳細へ", course_path(course),data: {"turbolinks" => false} %></td>
           </tr>
           <% end %>
@@ -32,13 +34,8 @@
       </table>
     </div>
 
-    <div class= "col-3 border">
-      <%= form_with model: @courses, url:courses_path, local: true do |f| %>
-        <%= f.label :prefecture, "都道府県名" %>
-        <%= f.select :prefecture, Course.areas.keys, {} %><br>
-
-        <%= f.submit '検索する',class: 'btn btn-primary btn-lg' %>
-      <% end %>
+    <div class= "col-2 border p-4">
+      <%= render "searchform", course: @course %>
     </div>
   </div>
 </div>
