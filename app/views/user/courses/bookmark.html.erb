@@ -4,35 +4,38 @@
   </div>
 
   <div class= "row d-flex align-items-start">
-    <div class= "col-8">
+    <div class= "col-10">
       <table class="table table-bordered">
         <thead>
           <tr class= "table-secondary">
             <th style="width: 20%">コース名</th>
             <th style="width: 20%">都道府県</th>
             <th style="width: 20%">タグ</th>
-            <th style="width: 20%"></th>
+            <th style="width: 10%">いいね</th>
+            <th style="width: 10%"></th>
           </tr>
         </thead>
         <tbody>
-          <% @bookmarks.each do |bookmark| %>
+          <% @courses.each do |course| %>
           <tr>
-            <td><%= bookmark.course.name %></td>
-            <td><%= bookmark.course.prefecture %></td>
+            <td><%= course.name %></td>
+            <td><%= course.prefecture %></td>
             <td>
-              <% bookmark.course.tags.all.each do |tag| %>
+              <% course.tags.each do |tag| %>
                 <%= tag.name %>
               <% end %>
             </td>
-            <td><%= link_to "詳細へ", course_path(bookmark.course) %></td>
+            <td><%= course.favorites.count %></td>
+            <td><%= link_to "詳細へ", course_path(course),data: {"turbolinks" => false} %></td>
           </tr>
           <% end %>
+        </tbody>
         </tbody>
       </table>
     </div>
 
-    <div class= "col-2">
-      aa
+    <div class= "col-2 border p-4">
+      <%= render "bmsearchform", course: @course %>
     </div>
   </div>
 </div>

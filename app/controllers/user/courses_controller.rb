@@ -15,6 +15,7 @@ class User::CoursesController < ApplicationController
       courseid2 = courseid.select{|v| courseid.count(v) > (params[:tag_id].size - 1) }.uniq
       courses = Course.where(id: courseid2).where(prefecture: params[:prefecture]).where(is_hid: false)
     end
+    ## ソート処理
     if params[:sort] == "old"
       @courses = courses.order(:created_at)
     elsif params[:sort] == "favorite"
@@ -76,12 +77,42 @@ class User::CoursesController < ApplicationController
 
   def my_course
     @tags = Tag.all
-    @courses = Course.where(user_id: current_user.id)
+    courses = Course.where(user_id: current_user.id)
+    courses = Course.where(prefecture: params[:prefecture]).where(user_id: current_user.id) if params[:prefecture].present?
+    if params[:tag_id].present?
+      coursetags = CourseTag.where(tag_id: params[:tag_id])
+      courseid = coursetags.pluck(:course_id)
+      courseid2 = courseid.select{|v| courseid.count(v) > (params[:tag_id].size - 1) }.uniq
+      courses = Course.where(id: courseid2).where(prefecture: params[:prefecture]).where(user_id: current_user.id)
+    end
+    if params[:sort] == "old"
+      @courses = courses.order(:created_at)
+    elsif params[:sort] == "favorite"
+      @courses = courses.left_joins(:favorites).group("courses.id").order("count(favorites.id) desc")
+    else
+      @courses = courses.order(created_at: "DESC")
+    end
   end
 
   def bookmark
     @tags = Tag.all
-    @bookmarks = Bookmark.where(user_id: current_user.id)
+    bookmark = Bookmark.where(user_id: current_user.id)
+    bmcourseid = bookmark.pluck(:course_id)
+    courses = Course.where(id: bmcourseid)
+    courses = Course.where(prefecture: params[:prefecture]).where(id: bmcourseid) if params[:prefecture].present?
+    if params[:tag_id].present?
+      coursetags = CourseTag.where(tag_id: params[:tag_id])
+      courseid = coursetags.pluck(:course_id)
+      courseid2 = courseid.select{|v| courseid.count(v) > (params[:tag_id].size - 1) }.uniq
+      courses = Course.where(id: courseid2).where(prefecture: params[:prefecture]).where(id: bmcourseid)
+    end
+    if params[:sort] == "old"
+      @courses = courses.order(:created_at)
+    elsif params[:sort] == "favorite"
+      @courses = courses.left_joins(:favorites).group("courses.id").order("count(favorites.id) desc")
+    else
+      @courses = courses.order(created_at: "DESC")
+    end
   end
 
   private

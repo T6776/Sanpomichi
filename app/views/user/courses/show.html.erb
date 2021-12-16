@@ -8,9 +8,6 @@
     <div class="col-8">
       <div class= "googlemap">
         <iframe src="https://www.google.com/maps/d/u/0/embed?mid=<%= @map %>" width="100%" height="480"></iframe><br>
-        <div class= "col-8 text-wrap">
-          説明文：<%=@course.introduction %>
-        </div>
       </div>
 
 
@@ -53,7 +50,22 @@
           </p>
         <% end %>
       </h4><br>
-      <!--投稿画像をスライド表示-->
+      <h4>
+        <% if current_user.id == @course.user.id %>
+          <%= link_to "編集する", edit_course_path(@course) %>
+        <% end %>
+      </h4>
+    </div>
+  </div>
+
+  <div class= "row">
+    <div class= "col-6">
+      <div class= "col-8 text-wrap">
+        説明文：<%=@course.introduction %>
+      </div>
+    </div>
+    <div class="col-6">
+    <!--投稿画像をスライド表示-->
       <% if @course.course_images.present? %>
       <div>
         <div id= "slider">
@@ -65,16 +77,10 @@
         </div>
       </div>
       <% end %>
-      <h4>
-        <% if current_user.id == @course.user.id %>
-          <%= link_to "編集する", edit_course_path(@course) %>
-        <% end %>
-      </h4>
     </div>
-  </div>
+  </div><br>
 
-  <div><br>
-
+  <div>
     <div>
       コメント:<br>
       <% @course.comments.each do |comment| %>
