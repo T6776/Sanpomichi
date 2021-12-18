@@ -4,6 +4,13 @@
     <h1>コース一覧</h1>
   </div>
 
+  <% if params[:prefecture].present? %>
+  検索：<%= params[:prefecture] %>
+    <% if params[:tag_name] %>
+      <%= params[:tag_name] %>
+    <% end %>
+  <% end %>
+
   <div class= "row d-flex align-items-start">
     <div class= "col-10">
       <table class="table table-bordered">

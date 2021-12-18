@@ -5,7 +5,7 @@
   <%= f.label :tag_ids, "タグ：" %><br>
   <% @tags.each do |tag| %>
     <label class="form-check-label ml-3">
-      <%= f.check_box :tag_id,{ multiple: true,include_hidden: false }, tag.id %>
+      <%= f.check_box :tag_name,{ multiple: true,include_hidden: false }, tag.name %>
       <%= f.label tag.name %>
     </label><br>
   <% end %>
