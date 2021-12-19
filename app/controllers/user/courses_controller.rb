@@ -1,4 +1,7 @@
 class User::CoursesController < ApplicationController
+
+  before_action :authenticate_user!, except: [:index,:show]
+
   def index
     @tags = Tag.all
     ## 公開設定されているコースのみを取得
@@ -49,6 +52,9 @@ class User::CoursesController < ApplicationController
 
   def edit
     @course = Course.find(params[:id])
+    if current_user.id != @course.user.id
+      redirect_to course_path(@course)
+    end
   end
 
   def create
