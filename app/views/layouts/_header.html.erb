@@ -1,7 +1,11 @@
 <header>
   <nav class= "navbar navbar-expand-lg navbar-dark bg-info">
     <div class ="container-fluid">
-      <span class="navbar-brand h1"><%= link_to "Sanpomichi", root_path, class: "deco-none text-light" %></span>
+      <span class="navbar-brand h1">
+        <%= link_to root_path, class: "deco-none text-light" do %>
+        <i class="fas fa-walking"></i>Sanpomichi
+        <% end %>
+      </span>
       <% if user_signed_in? %>
         <p class="text-light p-2 m-0">ようこそ<strong><%= current_user.name %></strong>さん！</p>
       <% end %>

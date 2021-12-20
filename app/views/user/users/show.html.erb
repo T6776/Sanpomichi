@@ -3,12 +3,16 @@
     <h1><%= @user.name %>さんのマイページ</h1>
   </div>
 
-  <div>
-    <%= link_to "会員情報編集", edit_user_path(@user) %>
+  <div class= "h3">
+    <%= link_to edit_user_path(@user) do %>
+     <i class="fas fa-user fa-fw"></i>会員情報編集
+    <% end %><br>
   </div>
 
-  <div>
-    <%= link_to "自分の投稿コース一覧", my_course_courses_path %>
+  <div class= "h3">
+    <%= link_to my_course_courses_path do %>
+      <i class="fas fa-shoe-prints fa-fw"></i>自分の投稿コース一覧
+    <% end %>
   </div>
 
 </div>
