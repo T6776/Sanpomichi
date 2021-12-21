@@ -35,7 +35,12 @@
               <% end %>
             </td>
             <td><%= course.favorites.count %></td>
-            <td><%= course.is_hid ? "非公開" : "公開" %></td>
+            <% if course.is_hid == false %>
+              <td class= "text-primary"><%= course.is_hid ? "非公開" : "公開" %></td>
+              <% else %>
+              <td class= "text-danger"><%= course.is_hid ? "非公開" : "公開" %></td>
+              <% end %>
+            </td>
             <td><%= link_to "詳細へ", course_path(course),data: {"turbolinks" => false} %></td>
           </tr>
           <% end %>
