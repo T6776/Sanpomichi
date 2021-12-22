@@ -1,0 +1,13 @@
+div.container
+  div.mt-4
+    h1 ようこそSanpomichiへ！
+    div
+      | はじめて訪れる方は
+      = link_to 'こちら', about_path
+      | へ
+  br
+
+  div
+    div.text-center
+      | ▼検索したいコースの都道府県をクリックしてください▼
+    = render "map"

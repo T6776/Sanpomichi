@@ -1,0 +1,10 @@
+- if course.bookmarked_by?(current_user)
+  p
+    = link_to course_bookmarks_path(course), method: :delete, remote: true do
+      <i class="fas fa-star fa-fw text-warning"></i>
+      | ブックマーク済み
+- else
+  p
+    = link_to course_bookmarks_path(course), method: :post, remote: true do
+      <i class="far fa-star fa-fw text-warning"></i>
+      | ブックマークする

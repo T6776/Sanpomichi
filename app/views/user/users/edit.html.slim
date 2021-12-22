@@ -1,0 +1,29 @@
+div.container
+  div.mt-4
+    h1
+      | ユーザー情報編集
+
+  - if @user.errors.any?
+    div.alert.alert-danger
+      = @user.errors.count
+      | 件のエラーが発生しました<br>
+      - @user.errors.full_messages.each do |message|
+        li.ml-3
+          = message
+
+
+  div
+    = form_with model: @user, url: user_path, local: true do |f|
+      = f.label :name, "ユーザーネーム"
+      br
+      = f.text_field :name, autofocus: true, class:"mb-2"
+      br
+      = f.label :email, "メールアドレス"
+      br
+      = f.email_field :email, autocomplete: "email", class:"mb-2"
+      br
+      = f.label :password, "パスワード"
+      br
+      = f.password_field :password, placeholder:"6文字以上の半角英数字", class:"mb-2"
+      br
+      = f.submit "ユーザー情報を更新する"

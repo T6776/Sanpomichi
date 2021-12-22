@@ -1,0 +1,12 @@
+- if course.favorited_by?(current_user)
+  p
+    = link_to course_favorites_path(course), method: :delete, remote: true do
+      <i class="fas fa-thumbs-up fa-fw text-success"></i>
+      = course.favorites.count
+      | いいね
+- else
+  p
+    = link_to course_favorites_path(course), method: :post, remote: true do
+      <i class="far fa-thumbs-up fa-fw text-success"></i>
+      = course.favorites.count
+      | いいね
