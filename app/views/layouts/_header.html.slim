@@ -8,11 +8,11 @@ header
 
         - if user_signed_in?
           span.text-light.p-2.m-0
-           | &emsp;ようこそ
+           | &emsp;ようこそ&nbsp;
 
            strong
              = current_user.name
-           | さん！
+           | &nbsp;さん！
 
       - if user_signed_in?
         ul.navbar-nav

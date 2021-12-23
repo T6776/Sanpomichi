@@ -45,3 +45,7 @@ $(document).ready(function () {
     hidePrevious : false
   });
 });
+
+$(function() {
+  $('img[usemap]').rwdImageMaps();
+})
