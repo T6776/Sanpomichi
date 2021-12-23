@@ -1,0 +1,74 @@
+div.container
+  div.mt-4
+    h2
+      | コース新規登録
+
+  - if @course.errors.any?
+    div.alert.alert-danger
+      = @course.errors.count
+      | 件のエラーが発生しました
+
+      br
+      - @course.errors.full_messages.each do |message|
+        li.ml-3
+          = message
+
+  div.border.rounded.p-4
+    = form_with model: @course, url:courses_path, local: true, method: :post do |f|
+      = f.label :name, "コース名", class: "font-weight-bold"
+      span.text-danger
+        | &emsp;入力必須
+
+      br
+      = f.text_field :name, class:"mb-2"
+      br
+      = f.label :prefecture, "都道府県名", class: "font-weight-bold"
+      span.text-danger
+        | &emsp;選択必須
+
+      br
+      = f.select :prefecture, Course.areas.keys, {}, class:"mb-2"
+      br
+      = f.label :map_id, "地図URL", class: "font-weight-bold"
+      span.text-danger
+        | &emsp;入力必須&emsp;マイマップの公開設定を忘れずに！
+
+      br
+      = f.text_field :map_id, class:"mb-2", placeholder:"https://www.google.com/maps/d/u/0/edit?mid=…から始まるURLを貼り付けてください"
+      br
+      = f.label :image, "添付画像", class: "font-weight-bold"
+      span.text-info
+        | &emsp;shift + クリック　または　ctrl + クリックで複数の画像を選択できます
+
+      br
+      = f.attachment_field :course_images_images, multiple: true, class:"mb-2"
+      br
+      = f.label :introduction, "説明文", class: "font-weight-bold"
+      span.text-danger
+        | &emsp;入力必須
+
+      br
+      = f.text_area :introduction, class:"mb-2"
+      br
+      = f.label :tag_ids, "タグ選択", class: "font-weight-bold"
+      span.text-info
+        | &emsp;当てはまるタグを選択してください
+
+      br
+      - Tag.all.each do |tag|
+        = f.check_box :tag_ids,{ multiple: true, checked: @course.tags.find_by(id: tag.id).present?,include_hidden: false }, tag[:id]
+        label.form-check-label.mr-2
+          = f.label tag.name
+
+      br
+      = f.label :is_hid, "公開設定", class: "font-weight-bold"
+      span.text-info
+        | &emsp;公開しないにした場合はマイコース一覧から確認できます
+
+      br
+      = f.radio_button :is_hid, "false", checked: true
+      = f.label :is_hid, "公開する", value: false, class: "mr-2"
+      = f.radio_button :is_hid, "true"
+      = f.label :is_hid, "公開しない", value: true
+      br
+      = f.submit '投稿する',class: 'btn btn-primary btn-lg'

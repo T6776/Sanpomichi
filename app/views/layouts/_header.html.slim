@@ -1,0 +1,38 @@
+header
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-info
+    div.container-fluid
+      span.navbar-brand
+        = link_to root_path, class: "deco-none text-light h3 pb-0" do
+          <i class="fas fa-walking"></i>
+          | Sanpomichi
+
+        - if user_signed_in?
+          span.text-light.p-2.m-0
+           | &emsp;ようこそ
+
+           strong
+             = current_user.name
+           | さん！
+
+      - if user_signed_in?
+        ul.navbar-nav
+          li.nav-item
+            = link_to "マイページ", users_my_page_path, class: "nav-link text-light"
+          li.nav-item
+            = link_to "投稿コース一覧", courses_path, class: "nav-link text-light"
+          li.nav-item
+            = link_to "コース新規投稿", new_course_path, class: "nav-link text-light"
+          li.nav-item
+            = link_to "ブックマーク", bookmark_courses_path, class: "nav-link text-light"
+          li.nav-item
+            = link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link text-light"
+      - else
+        ul.navbar-nav
+          li.nav-item
+            = link_to "トップページ", root_path, class: "nav-link text-light"
+          li.nav-item
+            = link_to "投稿一覧", courses_path, class: "nav-link text-light"
+          li.nav-item
+            = link_to "新規登録", new_user_registration_path, class: "nav-link text-light"
+          li.nav-item
+            = link_to "ログイン", new_user_session_path, class: "nav-link text-light"

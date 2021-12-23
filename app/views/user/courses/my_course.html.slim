@@ -1,9 +1,9 @@
 div.container
-  div.text-danger.h2.mt-4
+  div.text-danger.h2.mt-4.
     = flash[:notice]
   div.mt-4
     h2
-      | コース一覧
+      | マイコース一覧
 
   - if params[:prefecture].present?
     span.text-primary
@@ -37,6 +37,9 @@ div.container
               | 投稿日
 
             th style="width: 10%"
+              | 公開設定
+
+            th style="width: 10%"
         tbody
           - @courses.each do |course|
             tr
@@ -45,14 +48,20 @@ div.container
               td
                 = course.prefecture
               td
-                - course.tags.each do |tag|
+                - course.tags.all.each do |tag|
                   = tag.name
               td.text-right
                 = course.favorites.count
               td
                 = course.created_at.strftime('%Y/%m/%d')
+              - if course.is_hid == false
+                td.text-primary
+                  = course.is_hid ? "非公開" : "公開"
+              - else
+                td.text-danger
+                  = course.is_hid ? "非公開" : "公開"
               td
                 = link_to "詳細へ", course_path(course),data: {"turbolinks" => false}
 
     div.col-2.border.rounded.p-4
-      = render "searchform", course: @course
+      = render "mysearchform", course: @course

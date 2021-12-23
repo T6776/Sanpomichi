@@ -1,6 +1,6 @@
 div.container
   div.mt-4
-    h1
+    h2
       | コース詳細
 
   div.row
@@ -44,11 +44,12 @@ div.container
 
 
   div.row
-    div.col-8.text-wrap
-      | 説明文：
+    div.col-8
+      div.text-wrap.border.rounded.p-2.mt-2
+        | 説明文：
 
-      br
-      =@course.introduction
+        br
+        =@course.introduction
     /投稿画像をスライド表示
     - if @course.course_images.present?
       div.col-4.pl-0.mt-2
@@ -61,9 +62,9 @@ div.container
   br
 
   div.col-8
-    div
+    div.border.bg-light
       - if @course.comments.present?
-        | コメント：
+        | &nbsp;コメント：
 
         br
         - @course.comments.each do |comment|
@@ -79,11 +80,15 @@ div.container
               li.list-inline-item
                 = comment.created_at.strftime('%Y/%m/%d %H:%M')
       - else
-        | このコースに対して投稿されたコメントはありません
+        div.text-center
+          | このコースに対して投稿されたコメントはありません
 
     br
     - if user_signed_in?
       div
         = form_with(model:[@course, @comment], local: true) do |f|
-          = f.text_area :comment,placeholder: "コメントを残す場合はここへ"
-          = f.submit "送信する"
+          = f.text_area :comment,placeholder: "コメントを残す場合はこちらへ"
+          | &emsp;
+
+
+          = f.submit "コメントする", class: "mb-2"

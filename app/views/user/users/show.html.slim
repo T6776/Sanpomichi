@@ -1,26 +1,36 @@
 div.container
   div.mt-4
-    h1
+    h2
       = @user.name
       | さんのマイページ
 
   br
 
-  div.h3
-    = link_to my_course_courses_path do
-      <i class="fas fa-shoe-prints fa-fw"></i>
-      | 自分の投稿したコース一覧
+  div.ml-4
+    div.h4
+      = link_to my_course_courses_path do
+        <i class="fas fa-shoe-prints fa-fw"></i>
+        | マイコース一覧
 
-  br
+    div.ml-4
+      | 自分が投稿したコースの確認ができます
 
-  div.h3
-    = link_to bookmark_courses_path do
-      <i class="fas fa-bookmark fa-fw"></i>
-      | ブックマークしたコース一覧
+    br
 
-  br
+    div.h4
+      = link_to bookmark_courses_path do
+        <i class="fas fa-bookmark fa-fw"></i>
+        | ブックマークコース一覧
 
-  div.h3
-    = link_to edit_user_path(@user) do
-      <i class="fas fa-user fa-fw"></i>
-      | ユーザー情報編集
+    div.ml-4
+      | ブックマークをしたコースの確認ができます
+
+    br
+
+    div.h4
+      = link_to edit_user_path(@user) do
+        <i class="fas fa-user fa-fw"></i>
+        | ユーザー情報編集
+
+    div.ml-4
+      | ユーザー名、メールアドレス等の変更ができます。
