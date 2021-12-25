@@ -23,7 +23,7 @@ class User::CoursesController < ApplicationController
     if params[:sort] == "old"
       @courses = courses.order(:created_at)
     elsif params[:sort] == "favorite"
-      ## favoritesテーブルに外部結合し、同じコースに紐づいているものをまとめ、その数で並び替え
+      ## favoritesテーブルに外部結合し、同じコースに紐づいているものをまとめ、いいねの数で並び替え
       @courses = courses.left_joins(:favorites).group("courses.id").order("count(favorites.id) desc")
     else
       @courses = courses.order(created_at: "DESC")

@@ -13,7 +13,7 @@ div.container.bg-white.pb-5
         li.ml-3
           = message
 
-  div.border.rounded.p-4
+  div.border.rounded.mx-2.p-4
     = form_with model: @course, url:course_path(@course), method: :patch, local: true do |f|
       = f.label :name, "コース名", class: "font-weight-bold"
       span.text-danger
@@ -73,4 +73,4 @@ div.container.bg-white.pb-5
       = f.submit "編集内容を保存",class: 'btn btn-primary btn-lg'
   br
   div
-    = link_to "コースを削除する", course_path(@course), method: :delete, "data-confirm" => "本当にコースを消去しますか？", class:'btn btn-danger text-light deco-none'
+    = link_to "コースを削除する", course_path(@course), method: :delete, "data-confirm" => "本当にコースを消去しますか？", class:'btn btn-danger text-light deco-none ml-2'

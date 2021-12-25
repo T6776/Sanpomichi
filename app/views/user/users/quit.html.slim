@@ -1,0 +1,15 @@
+div.container.bg-white.pb-5
+  div.mt-4
+    div.h2.text-danger.text-center
+      <i class="fas fa-exclamation-triangle"></i>
+      | 本当に退会しますか？
+
+    div.text-danger.text-center.ml-2.mt-4
+      | 退会した場合も投稿したコースは消去されず残ります。<br>
+        退会する場合は「退会する」をクリックしてください。
+
+    br
+
+    div.text-center
+      = link_to "退会しない", users_my_page_path,class:'btn btn-primary text-light deco-none'
+      = link_to "退会する", user_unsubscribe_path(@user), method: :patch, "data-confirm" => "退会を実行します", class:'btn btn-danger text-light deco-none ml-4'

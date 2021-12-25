@@ -9,12 +9,17 @@ div.container.bg-white.pb-5
         コース上のお勧めスポットなどの写真や解説を加えて投稿することができます。<br>
         また、タグ検索機能により条件を絞り込んで好みのコースを検索することも可能です。<br>
         コースの投稿にはユーザー登録が必要ですが、検索・閲覧は登録不要で行えます。<br>
-      
+
     br
 
     h2
       | Googleマップ　マイマップ機能について
 
-    div.ml-3
-      |
+    div.col-xl-8.ml-3
+      div.googlemap
+        iframe src="https://www.google.com/maps/d/u/0/embed?mid=1PVQktP4P0S2gxDcwUEmvOKLHZZ3GOkHh" width="100%" height="480"
+
+      div
+      | 上のような自分だけの地図を簡単に作ることができることができます。
+
       = link_to "こちら", "https://www.google.co.jp/intl/ja/maps/about/mymaps/", target: :_blank, rel: "noopener noreferrer"
