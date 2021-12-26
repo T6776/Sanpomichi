@@ -4,9 +4,10 @@ div.container.bg-white.pb-5
       = @user.name
       | さんのマイページ
 
-  br
+    div.text-danger.ml-4.h4
+      = flash[:notice]
 
-  div.border.rounded.col-8.ml-4.p-4
+  div.border.rounded.col-8.m-4.p-4
     div.h4
       = link_to my_course_courses_path do
         <i class="fas fa-shoe-prints fa-fw"></i>

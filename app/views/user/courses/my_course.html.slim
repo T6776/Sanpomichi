@@ -50,6 +50,8 @@ div.container.bg-white.pb-5
               td
                 - course.tags.all.each do |tag|
                   = tag.name
+                  | &nbsp;
+                  
               td.text-right
                 = course.favorites.count
               td
@@ -62,6 +64,9 @@ div.container.bg-white.pb-5
                   = course.is_hid ? "非公開" : "公開"
               td
                 = link_to "詳細へ", course_path(course),data: {"turbolinks" => false}
+                
+      div
+        = paginate @courses
 
     div.col-xl-2
       div.border.rounded.p-3

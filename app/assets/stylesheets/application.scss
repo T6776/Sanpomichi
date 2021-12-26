@@ -34,7 +34,7 @@ html {
 
 body {
   height: 100%;
-  background-image: url(assets/backimg.jpg);
+  background-image: image-url("backimg.jpg");
   background-size: cover;
   background-attachment: fixed;
   background-position: center center;

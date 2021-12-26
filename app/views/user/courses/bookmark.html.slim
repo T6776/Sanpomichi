@@ -46,12 +46,17 @@ div.container.bg-white.pb-5
               td
                 - course.tags.each do |tag|
                   = tag.name
+                  | &nbsp;
+
               td.text-right
                 = course.favorites.count
               td
                 = course.created_at.strftime('%Y/%m/%d')
               td
                 = link_to "詳細へ", course_path(course),data: {"turbolinks" => false}
+
+      div
+        = paginate @courses
 
     div.col-xl-2
       div.border.rounded.p-3

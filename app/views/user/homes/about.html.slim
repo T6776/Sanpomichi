@@ -1,9 +1,9 @@
 div.container.bg-white.pb-5
   div.mt-4
-    h2
+    h2.ml-2
       | Sanpomichiとは？
 
-    div.ml-3
+    div.ml-4
       | Sanpomichiはウォーキングコースのシェアサイトです。<br>
         Google マップのマイマップ機能を用いて作成した、ウォーキングコースの地図を<br>
         コース上のお勧めスポットなどの写真や解説を加えて投稿することができます。<br>
@@ -12,14 +12,21 @@ div.container.bg-white.pb-5
 
     br
 
-    h2
+    h2.ml-2
       | Googleマップ　マイマップ機能について
 
-    div.col-xl-8.ml-3
+    div.col-xl-8
       div.googlemap
         iframe src="https://www.google.com/maps/d/u/0/embed?mid=1PVQktP4P0S2gxDcwUEmvOKLHZZ3GOkHh" width="100%" height="480"
 
-      div
-      | 上のような自分だけの地図を簡単に作ることができることができます。
+      div.ml-2
+        | Googleマイマップは通常のGoogleマップを使ってオリジナルの地図を作成できるサービスです。<br>
+          上のような自分だけのウォーキングコースを簡単に作ることができることができます。<br>
+          詳しくは
 
-      = link_to "こちら", "https://www.google.co.jp/intl/ja/maps/about/mymaps/", target: :_blank, rel: "noopener noreferrer"
+        = link_to "こちら", "https://www.google.co.jp/intl/ja/maps/about/mymaps/", target: :_blank, rel: "noopener noreferrer"
+        | からどうぞ。<br>
+
+      span.text-danger
+        | ※Googleマイマップの作成には、Googleアカウントが必要です。
+

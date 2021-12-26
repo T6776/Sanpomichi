@@ -5,9 +5,9 @@ class User::CoursesController < ApplicationController
   def index
     @tags = Tag.all
     ## 公開設定されているコースのみを取得
-    courses = Course.where(is_hid: false)
+    courses = Course.where(is_hid: false).page(params[:page]).per(15)
     ## 検索欄で選択した都道府県のコースを取得
-    courses = Course.where(prefecture: params[:prefecture]).where(is_hid: false) if params[:prefecture].present?
+    courses = Course.where(prefecture: params[:prefecture]).where(is_hid: false).page(params[:page]).per(15) if params[:prefecture].present?
     ## 検索欄で選択した都道府県＋選択したタグのコースを取得
     if params[:tag_name].present?
       ## タグに紐づいてる中間テーブルcourse_tagを取得
@@ -17,7 +17,7 @@ class User::CoursesController < ApplicationController
       courseid = coursetags.pluck(:course_id)
       ## idが重複しているコースのみ抜き出す(複数タグのand検索)
       courseid2 = courseid.select{|v| courseid.count(v) > (params[:tag_name].size - 1) }.uniq
-      courses = Course.where(id: courseid2).where(prefecture: params[:prefecture]).where(is_hid: false)
+      courses = Course.where(id: courseid2).where(prefecture: params[:prefecture]).where(is_hid: false).page(params[:page]).per(15)
     end
     ## ソート処理
     if params[:sort] == "old"
@@ -84,14 +84,14 @@ class User::CoursesController < ApplicationController
 
   def my_course
     @tags = Tag.all
-    courses = Course.where(user_id: current_user.id)
-    courses = Course.where(prefecture: params[:prefecture]).where(user_id: current_user.id) if params[:prefecture].present?
+    courses = Course.where(user_id: current_user.id).page(params[:page]).per(15)
+    courses = Course.where(prefecture: params[:prefecture]).where(user_id: current_user.id).page(params[:page]).per(15) if params[:prefecture].present?
     if params[:tag_name].present?
       tagid = Tag.where(name: params[:tag_name])
       coursetags = CourseTag.where(tag_id: tagid)
       courseid = coursetags.pluck(:course_id)
       courseid2 = courseid.select{|v| courseid.count(v) > (params[:tag_name].size - 1) }.uniq
-      courses = Course.where(id: courseid2).where(prefecture: params[:prefecture]).where(user_id: current_user.id)
+      courses = Course.where(id: courseid2).where(prefecture: params[:prefecture]).where(user_id: current_user.id).page(params[:page]).per(15)
     end
     if params[:sort] == "old"
       @courses = courses.order(:created_at)
@@ -106,14 +106,14 @@ class User::CoursesController < ApplicationController
     @tags = Tag.all
     bookmark = Bookmark.where(user_id: current_user.id)
     bmcourseid = bookmark.pluck(:course_id)
-    courses = Course.where(id: bmcourseid)
-    courses = Course.where(prefecture: params[:prefecture]).where(id: bmcourseid) if params[:prefecture].present?
+    courses = Course.where(id: bmcourseid).page(params[:page]).per(15)
+    courses = Course.where(prefecture: params[:prefecture]).where(id: bmcourseid).page(params[:page]).per(15) if params[:prefecture].present?
     if params[:tag_name].present?
       tagid = Tag.where(name: params[:tag_name])
       coursetags = CourseTag.where(tag_id: tagid)
       courseid = coursetags.pluck(:course_id)
       courseid2 = courseid.select{|v| courseid.count(v) > (params[:tag_name].size - 1) }.uniq
-      courses = Course.where(id: courseid2).where(prefecture: params[:prefecture]).where(id: bmcourseid)
+      courses = Course.where(id: courseid2).where(prefecture: params[:prefecture]).where(id: bmcourseid).page(params[:page]).per(15)
     end
     if params[:sort] == "old"
       @courses = courses.order(:created_at)
