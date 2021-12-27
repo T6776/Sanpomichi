@@ -17,57 +17,62 @@ div.container.bg-white.pb-5
 
   div.row.d-flex.align-items-start
     div.col-xl-10
-      table.table.table-bordered
-        thead
-          tr.table-secondary
-            th style="width: 20%"
-              | コース名
+      - if @courses.exists?
+        table.table.table-bordered
+          thead
+            tr.table-secondary
+              th style="width: 20%"
+                | コース名
 
-            th style="width: 10%"
-              | 都道府県
+              th style="width: 10%"
+                | 都道府県
 
-            th style="width: 20%"
-              | タグ
+              th style="width: 20%"
+                | タグ
 
-            th style="width: 10%"
-              <i class="fas fa-thumbs-up"></i>
-              | いいね
+              th style="width: 10%"
+                <i class="fas fa-thumbs-up"></i>
+                | いいね
 
-            th style="width: 10%"
-              | 投稿日
+              th style="width: 10%"
+                | 投稿日
 
-            th style="width: 10%"
-              | 公開設定
+              th style="width: 10%"
+                | 公開設定
 
-            th style="width: 10%"
-        tbody
-          - @courses.each do |course|
-            tr
-              td
-                = course.name
-              td
-                = course.prefecture
-              td
-                - course.tags.all.each do |tag|
-                  = tag.name
-                  | &nbsp;
-                  
-              td.text-right
-                = course.favorites.count
-              td
-                = course.created_at.strftime('%Y/%m/%d')
-              - if course.is_hid == false
-                td.text-primary
-                  = course.is_hid ? "非公開" : "公開"
-              - else
-                td.text-danger
-                  = course.is_hid ? "非公開" : "公開"
-              td
-                = link_to "詳細へ", course_path(course),data: {"turbolinks" => false}
-                
-      div
-        = paginate @courses
+              th style="width: 10%"
+          tbody
+            - @courses.each do |course|
+              tr
+                td
+                  = course.name
+                td
+                  = course.prefecture
+                td
+                  - course.tags.all.each do |tag|
+                    = tag.name
+                    | &nbsp;
+
+                td.text-right
+                  = course.favorites.count
+                td
+                  = course.created_at.strftime('%Y/%m/%d')
+                - if course.is_hid == false
+                  td.text-primary
+                    = course.is_hid ? "非公開" : "公開"
+                - else
+                  td.text-danger
+                    = course.is_hid ? "非公開" : "公開"
+                td
+                  = link_to "詳細へ", course_path(course),data: {"turbolinks" => false}
+
+        div
+          = paginate @courses
+
+      - else
+        div.m-4.h2.text-warning
+          | 該当するコースはありません
 
     div.col-xl-2
       div.border.rounded.p-3
-        = render "searchform", course: @course
+        = render "mysearchform", course: @course
