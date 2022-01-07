@@ -47,6 +47,3 @@ https://docs.google.com/spreadsheets/d/1ig-455cT6ztcxRf4nDc43687UILMwSfIl20mNdqm
 - JS ライブラリ：jQuery
 - IDE：Cloud9
 
-## 使用素材
-
-- 使用検討中です
