@@ -7,7 +7,6 @@
 
     <script src="https://kit.fontawesome.com/bbda8b1c45.js" crossorigin="anonymous"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="jquery.rwdImageMaps.min.js"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag('favicon.ico') %>
@@ -19,5 +18,9 @@
     <%= yield %>
     <%= render "layouts/footer" %>
     </div>
+    <script src="js/imageMapResizer.min.js"></script>
+    <script>
+      imageMapResize();
+    </script>
   </body>
 </html>
