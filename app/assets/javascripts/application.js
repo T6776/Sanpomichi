@@ -21,6 +21,7 @@
 //= require turbolinks
 //= require_tree .
 
+/*global $*/
 $(document).ready(function () {
   $("#theTarget").skippr({
     // スライドショーの変化 ("fade" or "slide")
