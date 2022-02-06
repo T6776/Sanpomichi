@@ -4,6 +4,8 @@ class User::CoursesController < ApplicationController
 
   def index
     @tags = Tag.all
+    ## 都道府県未選択の場合でもソート処理ができるように
+    params[:prefecture] = '' if params[:prefecture] == '---'
     ## 公開設定されているコースのみを取得
     courses = Course.where(is_hid: false).page(params[:page]).per(15)
     ## 検索欄で選択した都道府県のコースを取得
@@ -83,6 +85,7 @@ class User::CoursesController < ApplicationController
   end
 
   def my_course
+    params[:prefecture] = '' if params[:prefecture] == '---'
     @tags = Tag.all
     courses = Course.where(user_id: current_user.id).page(params[:page]).per(15)
     courses = Course.where(prefecture: params[:prefecture]).where(user_id: current_user.id).page(params[:page]).per(15) if params[:prefecture].present?
@@ -103,6 +106,7 @@ class User::CoursesController < ApplicationController
   end
 
   def bookmark
+    params[:prefecture] = '' if params[:prefecture] == '---'
     @tags = Tag.all
     bookmark = Bookmark.where(user_id: current_user.id)
     bmcourseid = bookmark.pluck(:course_id)
