@@ -16,7 +16,7 @@ div.container.bg-white.pb-5
           = @course.name
         h5.mb-4
           | 投稿者：
-          
+
           = @course.user.name
         h5.mb-4
           | 都道府県：
@@ -63,26 +63,8 @@ div.container.bg-white.pb-5
   br
 
   div.col-xl-8
-    div.border.bg-light
-      - if @course.comments.present?
-        | &nbsp;コメント：
-
-        br
-        - @course.comments.each do |comment|
-          div.border.m-2
-            div.text-warning.ml-3
-              = comment.user.name
-            p.mx-3
-              = comment.comment
-            ul.list-inline.text-right
-              - if comment.user == current_user
-                li.list-inline-item
-                  = link_to "削除する", course_comment_path(comment.course, comment), method: :delete, "data-confirm" => "コメントを削除しますか？"
-              li.list-inline-item
-                = comment.created_at.strftime('%Y/%m/%d %H:%M')
-      - else
-        div.text-center
-          | このコースに対して投稿されたコメントはありません
+    div.border.bg-light#comment
+      = render "user/comments/comment", course: @course, comment: @comment
 
     br
     - if user_signed_in?

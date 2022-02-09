@@ -1,0 +1,19 @@
+- if course.comments.present?
+  | &nbsp;コメント：
+
+  br
+  - course.comments.each do |comment|
+    div.border.m-2
+      div.text-warning.ml-3
+        = comment.user.name
+      p.mx-3
+        = comment.comment
+      ul.list-inline.text-right
+        - if comment.user == current_user
+          li.list-inline-item
+            = link_to "削除する", course_comment_path(comment.course, comment), method: :delete, "data-confirm" => "コメントを削除しますか？"
+        li.list-inline-item
+          = comment.created_at.strftime('%Y/%m/%d %H:%M')
+- else
+  div.text-center
+    | このコースに対して投稿されたコメントはありません
