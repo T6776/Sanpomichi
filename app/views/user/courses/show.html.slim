@@ -68,5 +68,5 @@ div.container.bg-white.pb-5
 
     br
     - if user_signed_in?
-      div
+      div#commentform
       = render "user/comments/form", course: @course, comment: @comment

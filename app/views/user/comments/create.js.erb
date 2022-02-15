@@ -1,2 +1,2 @@
-$('#commentform').html("<%= j(render "user/comments/form", course: @course, comment: @comment) %>");
+$('#comment').html("<%= j(render "user/comments/comment", course: @course, comment: @comment) %>");
 $("textarea").val('');
