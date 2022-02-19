@@ -63,10 +63,19 @@ div.container.bg-white.pb-5
   br
 
   div.col-xl-8
-    div.border.bg-light#comment
-      = render "user/comments/comment", course: @course
+    div.border.bg-light
+      - if @course.comments.present?
+        | &nbsp;コメント：
+
+        br
+        div#comment
+          = render "user/comments/comment", course: @course
+
+      - else
+        div.text-center
+          | このコースに対して投稿されたコメントはありません
+
 
     br
     - if user_signed_in?
-      div#commentform
-      = render "user/comments/form", course: @course, comment: @comment
+      = render "user/comments/form", comment: @comment, course: @course

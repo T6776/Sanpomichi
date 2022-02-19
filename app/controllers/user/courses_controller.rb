@@ -46,6 +46,7 @@ class User::CoursesController < ApplicationController
     end
 
     @comment = Comment.new
+    @comments = @course.comments
     ## 保存されたURLからマイマップidを抜き出してiframe内のURLに渡す
     map = @course.map_id
     map.slice!(0..42)

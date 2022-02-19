@@ -1,6 +1,5 @@
-- if user_signed_in?
   div
-    = form_with(model:[course, comment], local: true) do |f|
+    = form_with(model:[course, comment]) do |f|
       = f.text_area :comment,placeholder: "コメントを残す場合はこちらへ"
       | &emsp;
 
